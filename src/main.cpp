@@ -1,47 +1,65 @@
-
+#include "Signal.hpp"
+#include <vector>
 #include <iostream>
 #include <algorithm>
 #include "Buffer.hpp"
+#include "Delay.hpp"
 
 using namespace std;
 
-class Test_fill
+double test_fill()
 {
-private:
-    double m_counter;
+    static double n(0);
+    return ++n;
+}
 
-public:
-    Test_fill() : m_counter(0.0) {}
-    double operator()()
-    {
-        m_counter += 1.0;
-        return m_counter;
-    }
-};
-
-int main()
+void test_buffer()
 {
     Buffer buffer(16);
-    vector<double> input(10, 0.0);
-    vector<double> output(7, 0.0);
-    Test_fill test_fill;
+    Signal input(10, 0.0);
+    Signal output(7, 0.0);
 
     for (int i = 0; i < 20; i++)
     {
         cout << "FRAME " << i + 1 << endl;
         generate(input.begin(), input.end(), test_fill);
-        cout << "input" << endl;
-        copy(input.begin(), input.end(), ostream_iterator<double>(cout, " "));
-        cout << endl;
-        buffer.write(input);
-        cout << "after write" << endl << buffer << endl;
+        cout << "input" << endl
+             << input << endl;
+        buffer.write(input, i % 7);
+        cout << "after write" << endl
+             << buffer;
         buffer.read(output);
-        cout << "output" << endl;
-        copy(output.begin(), output.end(), ostream_iterator<double>(cout, " "));
-        cout << endl;
-        cout << "after read" << endl<< buffer << endl;
+        cout << "output" << endl
+             << output << endl
+             << endl;
+        cout << "after read" << endl
+             << buffer;
         cout << endl;
     }
+}
+
+void test_delay()
+{
+    Delay delay_1(16);
+    Delay delay_2(16);
+    Signal signal(5, 0.0);
+
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "FRAME " << i + 1 << endl;
+        generate(signal.begin(), signal.end(), test_fill);
+        cout << "input" << endl
+             << signal << endl;
+        delay_1.process(delay_2.process(signal, 3), 7);
+        cout << "output" << endl
+             << signal << endl
+             << endl;
+    }
+}
+
+int main()
+{
+    test_delay();
 
     return 0;
 }

@@ -1,45 +1,61 @@
 #include "Buffer.hpp"
 #include <algorithm>
+#include <assert.h>
+#include <iterator>
 
 using namespace std;
 
 Buffer::Buffer(int size)
-    : m_size(size),
-      m_cursor(0)
+    : m_size(size)
 {
-    m_array = vector<double>(m_size, 0.0);
+    reset();
 }
 
 Buffer::~Buffer()
 {
 }
 
-void Buffer::write(vector<double> const &input, int delay)
+void Buffer::reset()
 {
-    int id(0);
+    m_samples = Signal(m_size, 0.0);
+    m_cursor = 0;
+}
+
+void Buffer::write_sample(double sample, int delay)
+{
+    assert(delay < m_size);
+    m_samples[(m_cursor + delay) % m_size] += sample;
+}
+
+double Buffer::read_sample()
+{
+    double sample = m_samples[m_cursor];
+    m_samples[m_cursor] = 0.0;
+    ++m_cursor %= m_size;
+    return sample;
+}
+
+void Buffer::write(Signal const &input, int delay)
+{
     for (int i = 0; i < input.size(); i++)
     {
-        id = (m_cursor + i + delay) % m_size;
-        m_array[id] += input[i];
+        write_sample(input[i], delay + i);
     }
 }
 
-void Buffer::read(vector<double> &output)
+void Buffer::read(Signal &output)
 {
     int n_samples = output.size();
-    int id(0);
     for (int i = 0; i < n_samples; i++)
     {
-        id = (m_cursor + i) % m_size;
-        output[i] = m_array[id];
-        m_array[id] = 0;
+        output[i] = read_sample();
     }
-    m_cursor = (m_cursor + n_samples) % m_size;
+    // generate(output.begin(), output.end(), read); //doesnt work, why?
 }
 
 void Buffer::display(ostream &stream) const
 {
-    copy(m_array.begin(), m_array.end(), ostream_iterator<double>(stream, " "));
+    stream << m_samples << endl;
 }
 
 ostream &operator<<(ostream &stream, Buffer const &buffer)

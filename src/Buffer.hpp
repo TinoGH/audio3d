@@ -1,22 +1,24 @@
 #ifndef BUFFER
 #define BUFFER
 
-#include <vector>
+#include "Signal.hpp"
 #include <ostream>
-#include <iterator>
 
 class Buffer
 {
 private:
-    std::vector<double> m_array;
+    Signal m_samples;
     int m_size;
     int m_cursor;
-    
+
 public:
     Buffer(int size);
     ~Buffer();
-    void write(std::vector<double> const &input, int delay = 0);
-    void read(std::vector<double> &output);
+    void write_sample(double sample, int delay = 0);
+    double read_sample();
+    void reset();
+    void write(Signal const &input, int delay = 0);
+    void read(Signal &output);
     void display(std::ostream &stream) const;
 };
 
