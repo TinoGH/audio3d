@@ -1,9 +1,9 @@
-#include "Signal.hpp"
-#include <vector>
 #include <iostream>
 #include <algorithm>
+#include "Signal.hpp"
 #include "Buffer.hpp"
 #include "Delay.hpp"
+#include "Coord.hpp"
 
 using namespace std;
 
@@ -33,8 +33,8 @@ void test_buffer()
              << output << endl
              << endl;
         cout << "after read" << endl
-             << buffer;
-        cout << endl;
+             << buffer
+             << endl;
     }
 }
 
@@ -57,9 +57,16 @@ void test_delay()
     }
 }
 
+void test_coord()
+{
+    Coord a(1.0, 2.0, 3.0), b(4.0, 5.0, 6.0), c;
+
+    cout << a << b << c << b - a << endl;
+}
+
 int main()
 {
-    test_delay();
+    test_coord();
 
     return 0;
 }

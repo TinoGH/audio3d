@@ -1,7 +1,5 @@
 #include "Buffer.hpp"
-#include <algorithm>
 #include <assert.h>
-#include <iterator>
 
 using namespace std;
 
@@ -21,10 +19,10 @@ void Buffer::reset()
     m_cursor = 0;
 }
 
-void Buffer::write_sample(double sample, int delay)
+void Buffer::write_sample(double sample, int offset)
 {
-    assert(delay < m_size);
-    m_samples[(m_cursor + delay) % m_size] += sample;
+    assert(offset < m_size);
+    m_samples[(m_cursor + offset) % m_size] += sample;
 }
 
 double Buffer::read_sample()
@@ -35,20 +33,19 @@ double Buffer::read_sample()
     return sample;
 }
 
-void Buffer::write(Signal const &input, int delay)
+void Buffer::write(Signal const &input, int offset)
 {
     for (int i = 0; i < input.size(); i++)
     {
-        write_sample(input[i], delay + i);
+        write_sample(input[i], offset + i);
     }
 }
 
 void Buffer::read(Signal &output)
 {
-    int n_samples = output.size();
-    for (int i = 0; i < n_samples; i++)
+    for (double &sample : output)
     {
-        output[i] = read_sample();
+        sample = read_sample();
     }
     // generate(output.begin(), output.end(), read); //doesnt work, why?
 }

@@ -6,11 +6,11 @@
 
 typedef std::vector<double> Signal;
 
-inline std::ostream &operator<<(std::ostream &o, Signal const &v)
+inline std::ostream &operator<<(std::ostream &stream, Signal const &signal)
 {
-    for (auto const &i : v)
-        o << i << " ";
-    return o;
+    for (double const &sample : signal)
+        stream << sample << "\n";
+    return stream;
 }
 
 #endif
