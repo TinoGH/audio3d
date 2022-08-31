@@ -59,7 +59,7 @@ void test_delay()
 
 void test_coord()
 {
-    Coord a(1.0, 2.0, 3.0), b(4.0, 5.0, 6.0), c;
+    Coord a(1.0, 2.0, 3.0), b(6.0, 5.0, 4.0), c;
 
     cout << a << b << c << b - a << endl;
 }

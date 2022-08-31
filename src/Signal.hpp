@@ -3,13 +3,18 @@
 
 #include <vector>
 #include <ostream>
+#include <algorithm>
+#include <iterator>
 
 typedef std::vector<double> Signal;
 
-inline std::ostream &operator<<(std::ostream &stream, Signal const &signal)
+// dont understand inline yet
+inline std::ostream &operator<<(
+    std::ostream &stream, Signal const &signal)
 {
-    for (double const &sample : signal)
-        stream << sample << "\n";
+    std::copy(signal.begin(), signal.end(), 
+        std::ostream_iterator<double>(stream, "\n"));
+
     return stream;
 }
 

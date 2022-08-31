@@ -47,7 +47,8 @@ void Buffer::read(Signal &output)
     {
         sample = read_sample();
     }
-    // generate(output.begin(), output.end(), read); //doesnt work, why?
+    // generate(output.begin(), output.end(), read);
+    //doesnt work, why?
 }
 
 void Buffer::display(ostream &stream) const
