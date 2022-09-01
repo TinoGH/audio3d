@@ -4,6 +4,8 @@
 #include "Buffer.hpp"
 #include "Delay.hpp"
 #include "Coord.hpp"
+#include "Quaternion.hpp"
+#include "Eulers.hpp"
 
 using namespace std;
 
@@ -61,12 +63,26 @@ void test_coord()
 {
     Coord a(1.0, 2.0, 3.0), b(6.0, 5.0, 4.0), c;
 
-    cout << a << b << c << b - a << endl;
+    cout << a << b << c << b - a << a * b << b / 2.0 << dot(a, b) << endl;
+    a.normalize();
+    cout << a << a.norm() << endl;
+}
+
+void test_quaternion()
+{
+    Quaternion q1(8.0, 7.0, 6.0, 5.0), q2(1.0, 2.0, 3.0, 4.0);
+    q1.normalize();
+    q2.normalize();
+    Quaternion q3 = q1 * q2;
+    Eulers a3 = q3.eulers();
+
+    cout << q1 << q2 << q3 << q3.matrix() << q3.norm() << endl;
+    cout << a3.yaw << ", " << a3.pitch << ", " << a3.roll << endl;
 }
 
 int main()
 {
-    test_coord();
+    test_quaternion();
 
     return 0;
 }

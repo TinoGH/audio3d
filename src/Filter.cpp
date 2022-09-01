@@ -1,5 +1,7 @@
 #include "Filter.hpp"
 
+using namespace std;
+
 Filter::Filter(int buffer_size)
     : m_buffer(buffer_size)
 {

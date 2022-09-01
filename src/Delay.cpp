@@ -1,5 +1,7 @@
 #include "Delay.hpp"
 
+using namespace std;
+
 Delay::Delay(int max_delay)
     : Filter(max_delay)
 {

@@ -8,12 +8,11 @@
 
 typedef std::vector<double> Signal;
 
-// dont understand inline yet
-inline std::ostream &operator<<(
-    std::ostream &stream, Signal const &signal)
+// I dont understand "inline" yet
+inline std::ostream &operator<<(std::ostream &stream, Signal const &signal)
 {
-    std::copy(signal.begin(), signal.end(), 
-        std::ostream_iterator<double>(stream, "\n"));
+    std::copy(signal.begin(), signal.end(),
+              std::ostream_iterator<double>(stream, "\n"));
 
     return stream;
 }
