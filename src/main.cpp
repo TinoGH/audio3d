@@ -5,7 +5,7 @@
 #include "Delay.hpp"
 #include "Coord.hpp"
 #include "Quaternion.hpp"
-#include "Eulers.hpp"
+#include "Object.hpp"
 
 using namespace std;
 
@@ -74,15 +74,44 @@ void test_quaternion()
     q1.normalize();
     q2.normalize();
     Quaternion q3 = q1 * q2;
-    Eulers a3 = q3.eulers();
+    Eulers a3(q3);
 
     cout << q1 << q2 << q3 << q3.matrix() << q3.norm() << endl;
-    cout << a3.yaw << ", " << a3.pitch << ", " << a3.roll << endl;
+    cout << a3 << endl;
+    cout << endl;
+
+    Quaternion q4(a3);
+    Eulers a4(q4);
+
+    cout << q4 << q4.norm() << endl;
+    cout << a4 << endl;
+    cout << endl;
+
+    Quaternion q(0.8446232, 0.1913417, 0.4619398, 0.1913417);
+    Eulers a(q);
+
+    cout << q << q.matrix() << q.norm() << endl;
+    cout << a << endl;
+    cout << endl;
+
+    Quaternion qt(Eulers(0.0, 45.0, 0.0));
+    Eulers at(qt);
+
+    cout << qt << qt.matrix() << qt.norm() << endl;
+    cout << at << endl;
+    cout << endl;
+}
+
+void test_object()
+{
+    Object spk(Coord(1.0, 1.0, 1.0)), mic;
+
+    cout << mic.rel_sphericals(spk) << endl;
 }
 
 int main()
 {
-    test_quaternion();
+    test_object();
 
     return 0;
 }

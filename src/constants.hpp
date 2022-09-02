@@ -1,0 +1,8 @@
+#ifndef CONSTANTS
+#define CONSTANTS
+
+#define PI 3.14159265358979323846
+#define RAD2DEG 180.0 / PI
+#define DEG2RAD PI / 180.0
+
+#endif

@@ -8,7 +8,6 @@
 
 typedef std::vector<double> Signal;
 
-// I dont understand "inline" yet
 inline std::ostream &operator<<(std::ostream &stream, Signal const &signal)
 {
     std::copy(signal.begin(), signal.end(),
