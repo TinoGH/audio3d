@@ -2,7 +2,6 @@
 #define COORD
 
 #include <ostream>
-#include <cmath>
 
 struct Sphericals;
 struct Coord
@@ -35,7 +34,9 @@ struct Sphericals
 {
     double azimuth, elevation, radius;
 
-    Sphericals(double azimuth_ = 0.0, double elevation_ = 0.0, double radius_ = 1.0);
+    Sphericals(double azimuth_ = 0.0, 
+               double elevation_ = 0.0, 
+               double radius_ = 1.0);
     Sphericals(Coord const &c);
 };
 

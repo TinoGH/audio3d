@@ -1,5 +1,6 @@
 #include "Quaternion.hpp"
 #include <cmath>
+#include "constants.hpp"
 
 using namespace std;
 
@@ -110,7 +111,9 @@ Quaternion operator*(Quaternion const &q1, Quaternion const &q2)
 }
 
 Eulers::Eulers(double yaw_, double pitch_, double roll_)
-    : yaw(yaw_ * DEG2RAD), pitch(pitch_ * DEG2RAD), roll(roll_ * DEG2RAD)
+    : yaw(yaw_ * DEG2RAD),
+      pitch(pitch_ * DEG2RAD),
+      roll(roll_ * DEG2RAD)
 {
 }
 
@@ -135,7 +138,10 @@ Eulers::Eulers(Quaternion const &q)
 
 std::ostream &operator<<(std::ostream &stream, Eulers const &e)
 {
-    return stream << "yaw: " << e.yaw * RAD2DEG << " degrees" << endl
-                  << "pitch: " << e.pitch * RAD2DEG << " degrees" << endl
-                  << "roll: " << e.roll * RAD2DEG << " degrees" << endl;
+    return stream << "yaw: " << e.yaw * RAD2DEG
+                  << " degrees" << endl
+                  << "pitch: " << e.pitch * RAD2DEG
+                  << " degrees" << endl
+                  << "roll: " << e.roll * RAD2DEG
+                  << " degrees" << endl;
 }

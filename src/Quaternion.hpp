@@ -3,7 +3,6 @@
 
 #include <ostream>
 #include "Coord.hpp"
-#include "constants.hpp"
 
 struct Axes
 {
@@ -43,7 +42,9 @@ struct Eulers
 {
     double yaw, pitch, roll;
 
-    Eulers(double yaw_ = 0.0, double pitch_ = 0.0, double roll_ = 0.0);
+    Eulers(double yaw_ = 0.0,
+           double pitch_ = 0.0,
+           double roll_ = 0.0);
     Eulers(Quaternion const &q);
 };
 

@@ -1,5 +1,6 @@
 #include "Coord.hpp"
 #include "constants.hpp"
+#include <cmath>
 
 using namespace std;
 
