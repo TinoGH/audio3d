@@ -16,7 +16,7 @@ public:
     Object(Coord const &position = Coord(),
            Quaternion const &orientation = Quaternion(),
            std::string const &name = "object");
-    ~Object();
+    virtual ~Object();
     Coord position() const;
     Quaternion orientation() const;
     std::string name() const;
