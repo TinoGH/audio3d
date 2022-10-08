@@ -10,7 +10,8 @@ protected:
 public:
     Pattern();
     virtual ~Pattern();
-    virtual Signal get_directivity(Coord const &direction = Coord(1.0));
+    virtual Signal get_directivity(
+        Coord const &direction = Coord(1.0));
 };
 
 #endif

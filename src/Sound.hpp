@@ -18,4 +18,21 @@ public:
     void set_pattern(Pattern *pattern);
 };
 
+class Source : Sound
+{
+private:
+public:
+    Source();
+    ~Source();
+};
+
+Source::Source()
+{
+}
+
+Source::~Source()
+{
+}
+
+
 #endif
